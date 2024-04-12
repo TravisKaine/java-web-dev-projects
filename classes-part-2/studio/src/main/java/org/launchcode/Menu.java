@@ -1,31 +1,52 @@
 package org.launchcode;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Menu {
-    private Date lastUpdated;
-    private ArrayList<MenuItem> items;
 
-    public Menu(Date d, ArrayList<MenuItem> i) {
-        this.lastUpdated = d;
-        this.items = i;
+    private ArrayList<MenuItem> menuItems = new ArrayList<>();
+    private LocalDate lastUpdated;
+
+    public ArrayList<MenuItem> getMenuItems() {
+        return menuItems;
     }
 
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    @Override
+    public String toString(){
+        StringBuilder appetizers = new StringBuilder();
+        for (MenuItem item: menuItems){
+            if (item.getCategory().equals("APPETIZERS")){
+                appetizers.append("\n").append(item).append("\n");
+            }
+        }
+
+        StringBuilder mainCourses = new StringBuilder();
+        for (MenuItem item: menuItems) {
+            if (item.getCategory().equals("MAIN COURSES")) {
+                mainCourses.append("\n").append(item).append("\n");
+            }
+        }
+        StringBuilder DESSERTS = new StringBuilder();
+        for (MenuItem item: menuItems){
+            if (item.getCategory().equals("DESSERTS")){
+                DESSERTS.append("\n").append(item).append("\n");
+            }
+        }
+        return  "\n" + "HUNGRY BUCKET INC \n" + "\n" +
+                "APPETIZERS" + appetizers + "\n" +
+                "MAIN COURSES" + mainCourses + "\n" +
+                "DESSERTS" + DESSERTS + "\n";
     }
 
-    public void setItems(ArrayList<MenuItem> items) {
-        this.items = items;
+    void addItem(MenuItem newItem) {
+        menuItems.add(newItem);
+        lastUpdated = LocalDate.now();
     }
 
-    public Date getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public ArrayList<MenuItem> getItems() {
-        return items;
+    void  removeItem(MenuItem item) {
+        menuItems.remove(item);
+        lastUpdated = LocalDate.now();
     }
 }
 
